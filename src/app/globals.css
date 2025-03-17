@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+/* Move pagination dots below the text */
+.swiper-pagination {
+  position: absolute;
+  bottom: -25px; /* Moves dots lower */
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+/* Dot styles */
+.swiper-pagination-bullet {
+  background-color: #d1d5db; /* Light grey dots */
+  opacity: 0.7;
+  transition: transform 0.3s ease;
+}
+
+/* Active dot styling */
+.swiper-pagination-bullet-active {
+  background-color: #ef4444; /* Red active dot */
+  opacity: 1;
+  transform: scale(1.2); /* Slightly larger active dot */
+}
+
