@@ -2,6 +2,8 @@ import ProductBannerDenim from "./ProductBannerDenim";
 import ProductGridDenim from "./ProductGridDenim";
 
 
+
+
 export default function Denim() {
   return (
     <main className="">

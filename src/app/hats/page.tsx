@@ -2,6 +2,7 @@ import ProductBannerHats from "./ProductBannerHats";
 import ProductGridHats from "./ProductGridHats";
 
 
+
 export default function Hats() {
   return (
     <main className="">

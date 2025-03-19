@@ -1,7 +1,7 @@
 import ProductBannerMan from "./ProductBannerMan";
-import ProductBannerHats from "./ProductBannerMan";
 import ProductGridMan from "./ProductGridMan";
-import ProductGridHats from "./ProductGridMan";
+
+
 
 
 export default function Man() {

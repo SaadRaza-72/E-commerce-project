@@ -2,6 +2,9 @@ import ProductBannerNewArrival from "./ProductBannerNewArrival";
 import ProductGridNewArrival from "./ProductGridNewArrival";
 
 
+
+
+
 export default function NewArrival() {
   return (
     <main className="">

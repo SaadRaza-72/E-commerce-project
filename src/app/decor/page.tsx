@@ -2,6 +2,7 @@ import ProductBannerDecor from "./ProductBannerDecor";
 import ProductGridDecor from "./ProductGridDecor";
 
 
+
 export default function Decor() {
   return (
     <main className="">
