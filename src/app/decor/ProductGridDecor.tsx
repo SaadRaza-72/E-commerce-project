@@ -45,7 +45,7 @@ export default function ProductGridDecor() {
 
       setProducts(sortedProducts);
     },
-    
+    []
   );
 
   useEffect(() => {

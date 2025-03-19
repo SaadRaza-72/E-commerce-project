@@ -19,7 +19,7 @@ const Footer = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
 
-  // Detect screen size to enable accordion behavior on mobile/tablet
+  // Detect screen size for responsive behavior
   useEffect(() => {
     const handleResize = () => setIsMobileOrTablet(window.innerWidth < 1024);
     handleResize();
@@ -33,7 +33,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-gray-100 py-8 px-4 text-gray-700">
-      <div className="container mx-auto grid grid-cols-1 md:grid-cols-1 lg:grid-cols-4 gap-6">
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* Section - Get in Touch */}
         <div>
           <h3
@@ -128,6 +128,13 @@ const Footer = () => {
               <div className="flex items-center border border-gray-400 rounded overflow-hidden">
                 <input type="email" placeholder="Your email address" className="p-2 flex-grow outline-none" />
                 <button className="bg-gradient-to-r from-gray-800 to-black text-white px-6 py-2 hover:opacity-80 transition-all">Subscribe</button>
+              </div>
+              <div className="flex gap-4 mt-4 text-2xl justify-start">
+                <SiPaypal className="text-gray-600 hover:text-blue-500 cursor-pointer" />
+                <SiVisa className="text-gray-600 hover:text-blue-700 cursor-pointer" />
+                <SiMastercard className="text-gray-600 hover:text-red-500 cursor-pointer" />
+                <SiAmericanexpress className="text-gray-600 hover:text-blue-500 cursor-pointer" />
+                <AiOutlineBank className="text-gray-600 hover:text-green-500 cursor-pointer" />
               </div>
             </>
           )}

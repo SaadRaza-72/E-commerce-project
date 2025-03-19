@@ -45,7 +45,7 @@ export default function ProductGridDenim() {
 
       setProducts(sortedProducts);
     },
-
+    []
   );
 
   useEffect(() => {
