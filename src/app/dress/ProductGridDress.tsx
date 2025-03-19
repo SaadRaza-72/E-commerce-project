@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ProductGridDress() {
   const initialProducts = [
@@ -21,50 +22,49 @@ export default function ProductGridDress() {
   const [layout, setLayout] = useState("grid-cols-2 md:grid-cols-3");
   const [sortOption, setSortOption] = useState("A-Z");
 
+  const handleSort = useCallback(
+    (sortValue) => {
+      setSortOption(sortValue);
+      localStorage.setItem("sortOption", sortValue);
+
+      const sortedProducts = [...initialProducts];
+
+      switch (sortValue) {
+        case "A-Z":
+          sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
+          break;
+        case "Low to High":
+          sortedProducts.sort((a, b) => a.price - b.price);
+          break;
+        case "High to Low":
+          sortedProducts.sort((a, b) => b.price - a.price);
+          break;
+        default:
+          break;
+      }
+
+      setProducts(sortedProducts);
+    },
+    []
+  );
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedLayout = localStorage.getItem("layout") || "grid-cols-2 md:grid-cols-3";
-      const savedSort = localStorage.getItem("sortOption") || "A-Z";
-      setLayout(savedLayout);
-      setSortOption(savedSort);
-      handleSort(savedSort);
-    }
-  }, []);
+    const savedLayout = localStorage.getItem("layout") || "grid-cols-2 md:grid-cols-3";
+    const savedSort = localStorage.getItem("sortOption") || "A-Z";
+    setLayout(savedLayout);
+    setSortOption(savedSort);
+    handleSort(savedSort);
+  }, [handleSort]);
 
   const handleLayout = (type) => {
     setLayout(type);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("layout", type);
-    }
-  };
-
-  const handleSort = (sortValue) => {
-    setSortOption(sortValue);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("sortOption", sortValue);
-    }
-
-    let sortedProducts = [...products];
-
-    if (sortValue === "A-Z") {
-      sortedProducts.sort((a, b) => a.name.localeCompare(b.name));
-    } else if (sortValue === "Low to High") {
-      sortedProducts.sort((a, b) => a.price - b.price);
-    } else if (sortValue === "High to Low") {
-      sortedProducts.sort((a, b) => b.price - a.price);
-    }
-
-    setProducts(sortedProducts);
+    localStorage.setItem("layout", type);
   };
 
   return (
     <section className="p-4 md:p-6 flex justify-center">
       <div className="w-full max-w-7xl">
         <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
-          <button className="text-gray-500 flex items-center">
-            <span className="mr-2">🛠️ Filter</span>
-          </button>
-
           <div className="flex space-x-2">
             <button onClick={() => handleLayout("list")} className="p-2 border hover:bg-gray-200">☰</button>
             <button onClick={() => handleLayout("grid-cols-2 sm:grid-cols-2")} className="p-2 border hover:bg-gray-200">🔲🔲</button>
@@ -82,7 +82,14 @@ export default function ProductGridDress() {
         <div className={`grid ${layout === "list" ? "grid-cols-1 gap-4" : layout + " gap-6"} transition-all duration-300`}>
           {products.map((product) => (
             <div key={product.id} className={`relative group transition-transform transform hover:scale-105 hover:shadow-xl p-2 rounded-lg ${layout === "list" ? "flex flex-col md:flex-row items-center gap-4" : ""}`}>
-              <img src={product.image} alt={product.name} className={`${layout === "list" ? "w-full md:w-40 h-40" : "w-full h-48"} object-cover transition-transform transform rounded`} />
+              <Image
+                src={product.image}
+                alt={product.name}
+                width={300}
+                height={300}
+                className={`object-cover transition-transform transform rounded ${layout === "list" ? "w-full md:w-40 h-40" : "w-full h-48"}`}
+                priority
+              />
               <div className={`${layout === "list" ? "flex flex-col justify-center text-center md:text-left" : ""}`}>
                 {product.badge && <span className={`absolute top-2 left-2 text-white px-2 py-1 rounded ${product.badge === "New" ? "bg-green-500" : "bg-orange-500"}`}>{product.badge}</span>}
                 {product.status && <span className={`absolute top-2 right-2 text-white px-2 py-1 rounded ${product.status === "Sold out" ? "bg-gray-500" : "bg-blue-500"}`}>{product.status}</span>}
