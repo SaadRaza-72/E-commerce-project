@@ -45,7 +45,7 @@ export default function ProductGridHats() {
 
       setProducts(sortedProducts);
     },
-    []
+    
   );
 
   useEffect(() => {
