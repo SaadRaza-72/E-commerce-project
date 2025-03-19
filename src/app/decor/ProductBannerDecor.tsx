@@ -7,10 +7,9 @@ export default function ProductBannerDecor() {
       <div className="text-center">
         <h1 className="text-3xl font-semibold">Products</h1>
         <p className="text-lg">
-          <span className="text-white">Home</span> &gt; <span>Products</span>
+          <span className="text-white">Home</span> &gt; <span>Decor</span>
         </p>
       </div>
-
       {/* Optional: Overlay effect */}
       <div className="absolute inset-0 "></div>
     </section>

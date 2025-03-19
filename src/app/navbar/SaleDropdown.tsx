@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef } from "react";
-import Link from "next/link"; // Import Next.js Link
+import Link from "next/link";
+import Image from "next/image"; // ✅ Import next/image
 
 export default function SaleDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -81,9 +82,7 @@ export default function SaleDropdown() {
             <ul className="flex justify-center space-x-4 mt-2">
               {categories.map((category, index) => (
                 <li key={index} className="hover:text-blue-500 cursor-pointer transition">
-                  <Link href={category.link}>
-                    {category.name}
-                  </Link>
+                  <Link href={category.link}>{category.name}</Link>
                 </li>
               ))}
             </ul>
@@ -107,9 +106,11 @@ export default function SaleDropdown() {
             >
               {products.map((product, index) => (
                 <div key={index} className="relative w-40 h-60 flex-shrink-0">
-                  <img
+                  <Image
                     src={product.image}
                     alt={product.name}
+                    width={160} // ✅ Set width & height for optimization
+                    height={240}
                     className="w-full h-full object-cover rounded-md"
                   />
 

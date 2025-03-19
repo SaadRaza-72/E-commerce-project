@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link"; // ✅ Import Next.js Link
+import Image from "next/image"; // ✅ Import Next.js Image
 
 export default function ShopDropdown() {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,9 +29,11 @@ export default function ShopDropdown() {
               {categories.map((category, index) => (
                 <div key={index} className="text-center group w-1/5">
                   <Link href={category.link}>
-                    <img
+                    <Image
                       src={category.image}
                       alt={category.name}
+                      width={500}
+                      height={250}
                       className="w-[500px] h-[250px] object-cover rounded-lg group-hover:scale-105 transition"
                     />
                   </Link>

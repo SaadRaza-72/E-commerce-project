@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import Image from "next/image";
 
 // ✅ Product Props
 type ProductProps = {
@@ -50,10 +51,13 @@ export default function ProductDetail({ product }: ProductProps) {
     <div className="max-w-7xl mx-auto p-4 grid grid-cols-1 md:grid-cols-2 gap-8">
       {/* ✅ Product Image */}
       <div className="flex justify-center items-center">
-        <img
+        <Image
           src={image || "/placeholder.jpg"}
           alt={name}
+          width={500}
+          height={500}
           className="w-full h-auto max-h-[500px] object-contain rounded-lg shadow-md"
+          priority
         />
       </div>
 
@@ -108,10 +112,10 @@ export default function ProductDetail({ product }: ProductProps) {
 
         {/* ✅ Trust Badges */}
         <div className="flex gap-2 mt-4">
-          <img src="/trust-mcafee.png" alt="McAfee Secure" className="h-8" />
-          <img src="/trust-norton.png" alt="Norton Secure" className="h-8" />
-          <img src="/trust-verisign.png" alt="VeriSign Secure" className="h-8" />
-          <img src="/trust-truste.png" alt="TRUSTe Verified" className="h-8" />
+          <Image src="/trust-mcafee.png" alt="McAfee Secure" width={32} height={32} />
+          <Image src="/trust-norton.png" alt="Norton Secure" width={32} height={32} />
+          <Image src="/trust-verisign.png" alt="VeriSign Secure" width={32} height={32} />
+          <Image src="/trust-truste.png" alt="TRUSTe Verified" width={32} height={32} />
         </div>
 
         {/* ✅ Delivery, Availability, Categories */}

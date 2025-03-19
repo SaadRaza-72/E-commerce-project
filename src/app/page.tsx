@@ -1,4 +1,3 @@
- import Image from "next/image";
 import HeroSlider from "./Homepage/HeroSlider";
 import CategorySection from "./Homepage/CategorySection";
 import TrendingSection from "./Homepage/TrendingSection";

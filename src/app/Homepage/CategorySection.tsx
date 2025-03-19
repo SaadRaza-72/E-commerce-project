@@ -18,7 +18,7 @@ const CategorySection = () => {
   return (
     <section className="bg-white py-10 px-4">
       <div className="max-w-screen-lg mx-auto text-center">
-        <h2 className="text-3xl font-semibold text-red-900">Category's</h2>
+        <h2 className="text-3xl font-semibold text-red-900">Categories</h2>
         <p className="text-gray-500 mb-4">Check out how they wear them!</p>
 
         {/* Desktop Grid */}

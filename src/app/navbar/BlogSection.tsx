@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 export default function BlogDropdown() {
@@ -58,7 +59,7 @@ export default function BlogDropdown() {
     >
       {/* Blog Menu Item */}
       <div className="cursor-pointer hover:text-blue-500 transition">
-      <Link href="/blog">Blog</Link>
+        <Link href="/blog">Blog</Link>
       </div>
 
       {/* Dropdown */}
@@ -91,7 +92,13 @@ export default function BlogDropdown() {
             </button>
 
             <div className="relative w-full flex flex-col items-center">
-              <img src={visiblePost.image} alt={visiblePost.title} className="w-full h-[400px] object-cover rounded-lg" />
+              <Image
+                src={visiblePost.image}
+                alt={visiblePost.title}
+                width={500}
+                height={400}
+                className="w-full h-[400px] object-cover rounded-lg"
+              />
               <div className="mt-2 text-center">
                 <p className="text-xs text-gray-500">{visiblePost.category}</p>
                 <h4 className="text-sm font-bold hover:text-blue-500 cursor-pointer">{visiblePost.title}</h4>

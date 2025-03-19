@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import Image from "next/image";
 
 const CartCheckout = () => {
   const [cartItems] = useState([
@@ -47,7 +48,7 @@ const CartCheckout = () => {
 
           {deliveryOption === "pickup" && (
             <div className="bg-red-100 text-red-600 p-2 rounded-md">
-              <strong>⚠️ Your item isn't available for store pickup.</strong>
+              <strong>⚠️ Your item isn&#39;t available for store pickup.</strong>
               <p className="text-sm">
                 <a href="#" className="text-blue-500 underline">
                   Ship to address
@@ -86,7 +87,7 @@ const CartCheckout = () => {
           <h2 className="text-2xl font-semibold mt-4">Payment</h2>
           <p className="text-gray-500">All transactions are secure and encrypted.</p>
           <div className="bg-gray-200 p-4 text-center rounded-md">
-            This store can't accept payments right now.
+            This store cant accept payments right now.
           </div>
           <button className="w-full bg-gray-300 text-gray-600 font-semibold py-2 mt-2 rounded-md" disabled>
             Pay now
@@ -98,7 +99,7 @@ const CartCheckout = () => {
           <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
           {cartItems.map((item) => (
             <div key={item.id} className="flex items-center gap-4 mb-4 border-b pb-2">
-              <img src={item.image} alt={item.name} className="w-16 h-16 rounded-md object-cover" />
+              <Image src={item.image} alt={item.name} width={64} height={64} className="rounded-md object-cover" />
               <div>
                 <p className="font-semibold">{item.name}</p>
                 <p className="text-gray-500 text-sm">

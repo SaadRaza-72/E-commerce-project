@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 const teamMembers = [
   { name: "Lisa John", role: "Fashion Design", image: "/img-1.jpg" },
@@ -13,7 +14,13 @@ const TeamSection = () => {
     <div className="team-section">
       {teamMembers.map((member, index) => (
         <div key={index} className="team-member">
-          <img src={member.image} alt={member.name} />
+          <Image 
+            src={member.image} 
+            alt={member.name} 
+            width={300} 
+            height={400} 
+            className="team-image"
+          />
           <h3>{member.name}</h3>
           <p>{member.role}</p>
         </div>
@@ -34,7 +41,7 @@ const TeamSection = () => {
           width: 300px;
         }
 
-        .team-member img {
+        .team-image {
           width: 100%;
           height: auto;
           border-radius: 5px;

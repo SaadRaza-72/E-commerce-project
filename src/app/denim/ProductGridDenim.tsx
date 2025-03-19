@@ -18,30 +18,27 @@ export default function ProductGridDenim() {
   ];
 
   const [products, setProducts] = useState(initialProducts);
-  const [layout, setLayout] = useState("grid-cols-2 md:grid-cols-3"); // Default layout
-  const [sortOption, setSortOption] = useState("A-Z"); // Default sorting option
+  const [layout, setLayout] = useState("grid-cols-2 md:grid-cols-3");
+  const [sortOption, setSortOption] = useState("A-Z");
 
-  // ✅ UseEffect ensures we access localStorage only on the client
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedLayout = localStorage.getItem("layout") || "grid-cols-2 md:grid-cols-3";
       const savedSort = localStorage.getItem("sortOption") || "A-Z";
       setLayout(savedLayout);
       setSortOption(savedSort);
-      handleSort(savedSort); // Apply sorting after loading
+      handleSort(savedSort);
     }
   }, []);
 
-  // ✅ Function to handle layout changes & save in localStorage
-  const handleLayout = (type: any) => {
+  const handleLayout = (type) => {
     setLayout(type);
     if (typeof window !== "undefined") {
       localStorage.setItem("layout", type);
     }
   };
 
-  // ✅ Sorting function (runs only on the client)
-  const handleSort = (sortValue: string) => {
+  const handleSort = (sortValue) => {
     setSortOption(sortValue);
     if (typeof window !== "undefined") {
       localStorage.setItem("sortOption", sortValue);
@@ -63,13 +60,11 @@ export default function ProductGridDenim() {
   return (
     <section className="p-4 md:p-6 flex justify-center">
       <div className="w-full max-w-7xl">
-        {/* Filter & Sorting Row */}
         <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
           <button className="text-gray-500 flex items-center">
             <span className="mr-2">🛠️ Filter</span>
           </button>
 
-          {/* Layout Buttons */}
           <div className="flex space-x-2">
             <button onClick={() => handleLayout("list")} className="p-2 border hover:bg-gray-200">☰</button>
             <button onClick={() => handleLayout("grid-cols-2 sm:grid-cols-2")} className="p-2 border hover:bg-gray-200">🔲🔲</button>
@@ -77,7 +72,6 @@ export default function ProductGridDenim() {
             <button onClick={() => handleLayout("grid-cols-2 md:grid-cols-4 lg:grid-cols-4")} className="hidden md:inline-block p-2 border hover:bg-gray-200">🔲🔲🔲🔲</button>
           </div>
 
-          {/* Sorting Dropdown */}
           <select className="border p-2 rounded" value={sortOption} onChange={(e) => handleSort(e.target.value)}>
             <option value="A-Z">Alphabetically, A-Z</option>
             <option value="Low to High">Price, Low to High</option>
@@ -85,41 +79,17 @@ export default function ProductGridDenim() {
           </select>
         </div>
 
-        {/* Product Grid / List */}
         <div className={`grid ${layout === "list" ? "grid-cols-1 gap-4" : layout + " gap-6"} transition-all duration-300`}>
           {products.map((product) => (
-            <div
-              key={product.id}
-              className={`relative group transition-transform transform hover:scale-105 hover:shadow-xl p-2 rounded-lg ${
-                layout === "list" ? "flex flex-col md:flex-row items-center gap-4" : ""
-              }`}
-            >
-              <img
-                src={product.image}
-                alt={product.name}
-                className={`${layout === "list" ? "w-full md:w-40 h-40" : "w-full h-48"} object-cover transition-transform transform rounded`}
-              />
+            <div key={product.id} className={`relative group transition-transform transform hover:scale-105 hover:shadow-xl p-2 rounded-lg ${layout === "list" ? "flex flex-col md:flex-row items-center gap-4" : ""}`}>
+              <img src={product.image} alt={product.name} className={`${layout === "list" ? "w-full md:w-40 h-40" : "w-full h-48"} object-cover transition-transform transform rounded`} />
               <div className={`${layout === "list" ? "flex flex-col justify-center text-center md:text-left" : ""}`}>
-                {product.badge && (
-                  <span className={`absolute top-2 left-2 text-white px-2 py-1 rounded ${product.badge === "New" ? "bg-green-500" : "bg-orange-500"}`}>
-                    {product.badge}
-                  </span>
-                )}
-                {product.status && (
-                  <span className={`absolute top-2 right-2 text-white px-2 py-1 rounded ${product.status === "Sold out" ? "bg-gray-500" : "bg-blue-500"}`}>
-                    {product.status}
-                  </span>
-                )}
+                {product.badge && <span className={`absolute top-2 left-2 text-white px-2 py-1 rounded ${product.badge === "New" ? "bg-green-500" : "bg-orange-500"}`}>{product.badge}</span>}
+                {product.status && <span className={`absolute top-2 right-2 text-white px-2 py-1 rounded ${product.status === "Sold out" ? "bg-gray-500" : "bg-blue-500"}`}>{product.status}</span>}
                 <Link href={`/products/${product.id}`}>
-                  <h3 className="mt-2 text-lg group-hover:text-blue-500 transition-colors">{product.name}</h3>
+                  <h3 className="mt-2 text-lg group-hover:text-blue-500 transition-colors cursor-pointer">{product.name}</h3>
                 </Link>
-                {product.oldPrice ? (
-                  <p className="text-red-500">
-                    <span className="line-through text-gray-400 mr-1">${product.oldPrice}</span>${product.price}
-                  </p>
-                ) : (
-                  <p className="text-gray-700 group-hover:text-green-500 transition-colors">${product.price}</p>
-                )}
+                {product.oldPrice ? <p className="text-red-500"><span className="line-through text-gray-400 mr-1">${product.oldPrice}</span>${product.price}</p> : <p className="text-gray-700 group-hover:text-green-500 transition-colors">${product.price}</p>}
               </div>
             </div>
           ))}

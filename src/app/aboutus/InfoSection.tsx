@@ -41,9 +41,9 @@ export default function InfoSection() {
   
         {/* Quote Section */}
         <div className="mt-8 bg-gray-100 p-6 italic text-gray-500 text-center border-l-4 border-gray-400">
-          "I am a text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+          I am a text block. Click edit button to change this text. Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
           Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo. Quis autem vel eum iure reprehenderit qui in ea 
-          voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?"
+          voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?
         </div>
       </section>
     );

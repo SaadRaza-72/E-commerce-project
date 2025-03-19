@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import Image from "next/image";
+import { useState } from "react";
 import { FiTrash2, FiEdit2, FiGift } from "react-icons/fi";
 
 // Sample product data
@@ -19,12 +20,10 @@ export default function CartItemRow() {
   const [giftWrap, setGiftWrap] = useState(false);
   const freeShippingThreshold = 100;
 
-  // Calculate total price based on product quantities
   const subtotal = products.reduce((acc, product) => acc + product.price * product.quantity, 0);
   const total = giftWrap ? subtotal + 5 : subtotal;
   const remainingForFreeShipping = Math.max(0, freeShippingThreshold - total);
 
-  // Handle quantity increase
   const increaseQuantity = (id) =>
     setProducts((prev) =>
       prev.map((product) =>
@@ -32,7 +31,6 @@ export default function CartItemRow() {
       )
     );
 
-  // Handle quantity decrease
   const decreaseQuantity = (id) =>
     setProducts((prev) =>
       prev.map((product) =>
@@ -42,7 +40,6 @@ export default function CartItemRow() {
       )
     );
 
-  // Handle product removal
   const removeProduct = (id) =>
     setProducts((prev) => prev.filter((product) => product.id !== id));
 
@@ -61,8 +58,14 @@ export default function CartItemRow() {
         <div key={product.id} className="border-t py-4 grid grid-cols-5 items-center gap-4">
           {/* Product Details Section */}
           <div className="col-span-2 flex items-center gap-4">
-            {/* Product Image */}
-            <img src={product.image} alt={product.name} className="w-24 h-24 object-cover rounded-md" />
+            {/* ✅ Updated Product Image */}
+            <Image
+              src={product.image}
+              alt={product.name}
+              width={96}
+              height={96}
+              className="object-cover rounded-md"
+            />
 
             {/* Product Info */}
             <div>
@@ -108,7 +111,6 @@ export default function CartItemRow() {
 
       {/* Checkout Section */}
       <div className="max-w-7xl mx-auto px-4 py-6 grid grid-cols-2 gap-8">
-        {/* Left Section */}
         <div className="space-y-4">
           {/* Gift Wrap */}
           <div className="flex items-center gap-2 text-gray-700">
