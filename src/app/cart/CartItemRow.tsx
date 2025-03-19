@@ -24,14 +24,14 @@ export default function CartItemRow() {
   const total = giftWrap ? subtotal + 5 : subtotal;
   const remainingForFreeShipping = Math.max(0, freeShippingThreshold - total);
 
-  const increaseQuantity = (id) =>
+  const increaseQuantity = (id:any) =>
     setProducts((prev) =>
       prev.map((product) =>
         product.id === id ? { ...product, quantity: product.quantity + 1 } : product
       )
     );
 
-  const decreaseQuantity = (id) =>
+  const decreaseQuantity = (id:any) =>
     setProducts((prev) =>
       prev.map((product) =>
         product.id === id && product.quantity > 1
@@ -40,7 +40,7 @@ export default function CartItemRow() {
       )
     );
 
-  const removeProduct = (id) =>
+  const removeProduct = (id:any) =>
     setProducts((prev) => prev.filter((product) => product.id !== id));
 
   return (
