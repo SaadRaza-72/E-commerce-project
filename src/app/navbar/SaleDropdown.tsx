@@ -1,11 +1,11 @@
 "use client";
 import { useState, useRef } from "react";
 import Link from "next/link";
-import Image from "next/image"; // ✅ Import next/image
+import Image from "next/image";
 
 export default function SaleDropdown() {
   const [isOpen, setIsOpen] = useState(false);
-  const scrollRef = useRef(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const categories = [
     { name: "New Arrival", link: "/newarrival" },
@@ -90,7 +90,7 @@ export default function SaleDropdown() {
 
           {/* Product List (Hidden Scroll) */}
           <div className="relative w-full mt-4 flex items-center">
-            {/* Left Scroll Button (On Image Section) */}
+            {/* Left Scroll Button */}
             <button
               onClick={scrollLeft}
               className="absolute left-2 bg-black bg-opacity-50 text-white px-4 py-3 rounded-full shadow-lg hover:bg-opacity-80 transition z-10"
@@ -109,7 +109,7 @@ export default function SaleDropdown() {
                   <Image
                     src={product.image}
                     alt={product.name}
-                    width={160} // ✅ Set width & height for optimization
+                    width={160}
                     height={240}
                     className="w-full h-full object-cover rounded-md"
                   />
@@ -129,7 +129,7 @@ export default function SaleDropdown() {
               ))}
             </div>
 
-            {/* Right Scroll Button (On Image Section) */}
+            {/* Right Scroll Button */}
             <button
               onClick={scrollRight}
               className="absolute right-2 bg-black bg-opacity-50 text-white px-4 py-3 rounded-full shadow-lg hover:bg-opacity-80 transition z-10"

@@ -24,14 +24,14 @@ export default function CartItemRow() {
   const total = giftWrap ? subtotal + 5 : subtotal;
   const remainingForFreeShipping = Math.max(0, freeShippingThreshold - total);
 
-  const increaseQuantity = (id:any) =>
+  const increaseQuantity = (id: number) =>
     setProducts((prev) =>
       prev.map((product) =>
         product.id === id ? { ...product, quantity: product.quantity + 1 } : product
       )
     );
 
-  const decreaseQuantity = (id:any) =>
+  const decreaseQuantity = (id: number) =>
     setProducts((prev) =>
       prev.map((product) =>
         product.id === id && product.quantity > 1
@@ -40,7 +40,7 @@ export default function CartItemRow() {
       )
     );
 
-  const removeProduct = (id:any) =>
+  const removeProduct = (id: number) =>
     setProducts((prev) => prev.filter((product) => product.id !== id));
 
   return (
@@ -120,9 +120,7 @@ export default function CartItemRow() {
             </span>
             <button
               onClick={() => setGiftWrap(!giftWrap)}
-              className={`border px-4 py-1 rounded-full font-semibold ${
-                giftWrap ? "bg-gray-200" : "hover:bg-gray-100"
-              }`}
+              className={`border px-4 py-1 rounded-full font-semibold ${giftWrap ? "bg-gray-200" : "hover:bg-gray-100"}`}
             >
               {giftWrap ? "Remove Gift Wrap" : "Add A Gift Wrap"}
             </button>

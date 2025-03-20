@@ -3,6 +3,9 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+// Define type for sorting options
+type SortOption = "A-Z" | "Low to High" | "High to Low";
+
 export default function ProductGridHats() {
   const initialProducts = [
     { id: "1", name: "12-Ply Gauze Sponges", price: 7, oldPrice: 10, status: "Sold out", badge: "-30%", image: "/img-1.jpg" },
@@ -20,10 +23,10 @@ export default function ProductGridHats() {
 
   const [products, setProducts] = useState(initialProducts);
   const [layout, setLayout] = useState("grid-cols-2 md:grid-cols-3");
-  const [sortOption, setSortOption] = useState("A-Z");
+  const [sortOption, setSortOption] = useState<SortOption>("A-Z");
 
   const handleSort = useCallback(
-    (sortValue) => {
+    (sortValue: SortOption) => {
       setSortOption(sortValue);
       localStorage.setItem("sortOption", sortValue);
 
@@ -50,13 +53,13 @@ export default function ProductGridHats() {
 
   useEffect(() => {
     const savedLayout = localStorage.getItem("layout") || "grid-cols-2 md:grid-cols-3";
-    const savedSort = localStorage.getItem("sortOption") || "A-Z";
+    const savedSort = (localStorage.getItem("sortOption") as SortOption) || "A-Z";
     setLayout(savedLayout);
     setSortOption(savedSort);
     handleSort(savedSort);
   }, [handleSort]);
 
-  const handleLayout = (type) => {
+  const handleLayout = (type: string) => {
     setLayout(type);
     localStorage.setItem("layout", type);
   };
@@ -72,7 +75,7 @@ export default function ProductGridHats() {
             <button onClick={() => handleLayout("grid-cols-2 md:grid-cols-4 lg:grid-cols-4")} className="hidden md:inline-block p-2 border hover:bg-gray-200">🔲🔲🔲🔲</button>
           </div>
 
-          <select className="border p-2 rounded" value={sortOption} onChange={(e) => handleSort(e.target.value)}>
+          <select className="border p-2 rounded" value={sortOption} onChange={(e) => handleSort(e.target.value as SortOption)}>
             <option value="A-Z">Alphabetically, A-Z</option>
             <option value="Low to High">Price, Low to High</option>
             <option value="High to Low">Price, High to Low</option>

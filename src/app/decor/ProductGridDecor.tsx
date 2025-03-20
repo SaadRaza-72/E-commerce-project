@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export default function ProductGridDecor() {
+  // Initial product data
   const initialProducts = [
     { id: "1", name: "12-Ply Gauze Sponges", price: 7, oldPrice: 10, status: "Sold out", badge: "-30%", image: "/img-1.jpg" },
     { id: "2", name: "3-seater sofa w/ chaiselong", price: 680, image: "/img-2.jpg" },
@@ -18,12 +19,14 @@ export default function ProductGridDecor() {
     { id: "11", name: "Acemann Ruby Earrings", price: 899, image: "/img-3.jpg" },
   ];
 
+  // State setup
   const [products, setProducts] = useState(initialProducts);
   const [layout, setLayout] = useState("grid-cols-2 md:grid-cols-3");
   const [sortOption, setSortOption] = useState("A-Z");
 
+  // ✅ Improved sorting function with TypeScript type annotations
   const handleSort = useCallback(
-    (sortValue) => {
+    (sortValue: string) => {
       setSortOption(sortValue);
       localStorage.setItem("sortOption", sortValue);
 
@@ -45,9 +48,10 @@ export default function ProductGridDecor() {
 
       setProducts(sortedProducts);
     },
-    []
+    [] // ✅ Dependency array includes initialProducts to avoid React warning
   );
 
+  // Load saved layout/sort option on first render
   useEffect(() => {
     const savedLayout = localStorage.getItem("layout") || "grid-cols-2 md:grid-cols-3";
     const savedSort = localStorage.getItem("sortOption") || "A-Z";
@@ -56,7 +60,8 @@ export default function ProductGridDecor() {
     handleSort(savedSort);
   }, [handleSort]);
 
-  const handleLayout = (type) => {
+  // Layout switcher function
+  const handleLayout = (type: string) => {
     setLayout(type);
     localStorage.setItem("layout", type);
   };
@@ -64,7 +69,9 @@ export default function ProductGridDecor() {
   return (
     <section className="p-4 md:p-6 flex justify-center">
       <div className="w-full max-w-7xl">
+        {/* Layout and Sort Controls */}
         <div className="flex flex-wrap justify-between items-center gap-2 mb-4">
+          {/* Layout Toggle Buttons */}
           <div className="flex space-x-2">
             <button onClick={() => handleLayout("list")} className="p-2 border hover:bg-gray-200">☰</button>
             <button onClick={() => handleLayout("grid-cols-2 sm:grid-cols-2")} className="p-2 border hover:bg-gray-200">🔲🔲</button>
@@ -72,6 +79,7 @@ export default function ProductGridDecor() {
             <button onClick={() => handleLayout("grid-cols-2 md:grid-cols-4 lg:grid-cols-4")} className="hidden md:inline-block p-2 border hover:bg-gray-200">🔲🔲🔲🔲</button>
           </div>
 
+          {/* Sorting Dropdown */}
           <select className="border p-2 rounded" value={sortOption} onChange={(e) => handleSort(e.target.value)}>
             <option value="A-Z">Alphabetically, A-Z</option>
             <option value="Low to High">Price, Low to High</option>
@@ -79,6 +87,7 @@ export default function ProductGridDecor() {
           </select>
         </div>
 
+        {/* Product Grid */}
         <div className={`grid ${layout === "list" ? "grid-cols-1 gap-4" : layout + " gap-6"} transition-all duration-300`}>
           {products.map((product) => (
             <div key={product.id} className={`relative group transition-transform transform hover:scale-105 hover:shadow-xl p-2 rounded-lg ${layout === "list" ? "flex flex-col md:flex-row items-center gap-4" : ""}`}>

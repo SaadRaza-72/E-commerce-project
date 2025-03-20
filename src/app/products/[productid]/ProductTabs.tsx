@@ -1,41 +1,25 @@
 "use client";
 import { useState } from "react";
 
-const ProductTabs = () => {
-  const [activeTab, setActiveTab] = useState("description");
+// Define the type for tab content props
+interface TabContentProps {
+  description: string;
+  customTab: string;
+  reviews: { user: string; rating: number; comment: string; date: string }[];
+}
 
-  const tabContent = {
-    description: `
-      Delicate, sweet and extremely smooth are recognizable traits when looking at the Lips sofa of CAMI. 
-      Single chair with comfortable seating gives you relaxing moments with good books and fragrant tea cups.
+const ProductTabs = ({ description, customTab, reviews }: TabContentProps) => {
+  const [activeTab, setActiveTab] = useState<"description" | "customTab" | "reviews">("description");
 
-      Made of velvet velvet fabric that gives a luxurious classic look to the living room and elegant walnut wood legs, the Armchair Lips with various colors will surely make you satisfied.
-
-      Size: 86x 84 x 86 cm  
-      Warranty: 3 years wooden frame, 1 year sucking pad  
-      Material: Russian oak frame, imported velvet felt  
-      Color: Pink / optional
-    `,
-    customTab: `
-      🧺 Wash at 30°C  🚫 Do not bleach  🔲 Dry flat  🌡️ Iron at low temperature  🔘 Dry clean only  ⛔ Do not tumble dry
-      LT01: 70% wool, 15% polyester, 10% polyamide, 5% acrylic 900 Grms/mt
-    `,
-    reviews: `
-      ⭐⭐⭐☆☆  3.5/5 (2 reviews)
-      -------------------
-      Kevin  
-      ⭐⭐⭐☆☆ (2 months ago)  
-      "look great"  
-      - this is a review  
-      👍 0  👎 1  
-
-      fdsafdldsfsdfsfd  
-      ⭐⭐⭐⭐☆ (2 years ago)  
-      "fd"  
-      - dsffdsfds  
-      🖼️ [Attached images]  
-      👍 2  👎 0  
-    `,
+  // Ensure TypeScript knows the structure of tab content
+  const tabContent: { [key: string]: string } = {
+    description,
+    customTab,
+    reviews: reviews
+      .map(
+        (review) => `⭐️ ${review.user} (${review.rating}/5): ${review.comment} — ${review.date}`
+      )
+      .join("\n")
   };
 
   return (
@@ -46,7 +30,7 @@ const ProductTabs = () => {
           <button
             key={tab}
             className={activeTab === tab ? "active" : ""}
-            onClick={() => setActiveTab(tab)}
+            onClick={() => setActiveTab(tab as "description" | "customTab" | "reviews")}
           >
             {tab.charAt(0).toUpperCase() + tab.slice(1)}
           </button>
